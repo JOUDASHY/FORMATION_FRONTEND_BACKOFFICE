@@ -77,6 +77,7 @@ const Logins = () => {
 
   // Gestion de la réponse de l'authentification Google
   const handleGoogleLogin = async (credentialResponse) => {
+    console.log('clicked google login')
     if (credentialResponse.credential) {
       console.log("Google Token:", credentialResponse.credential);  // Vérifiez la valeur du jeton
       try {
@@ -208,9 +209,10 @@ const Logins = () => {
 
 const Login = () => {
   return (
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-      <Logins />
-    </GoogleOAuthProvider>
+<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_API_KEY}>
+  <Logins />
+</GoogleOAuthProvider>
+
   );
 };
 
