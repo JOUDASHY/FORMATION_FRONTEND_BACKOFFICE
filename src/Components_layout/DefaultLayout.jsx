@@ -22,7 +22,7 @@ console.log("URL ............ :",baseUrl); // Ex: http://localhost:3000 ou https
 
         socket.onopen = () => {
             if (userId) {
-                console.log('Connected to WebSocket');
+                console.log('Connected to WebSocket online_srv' );
                 socket.send(JSON.stringify({ userId }));
             }
         };

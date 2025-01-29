@@ -35,7 +35,7 @@ const NotificationDropdown = () => {
             socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_NOTIF_URL.replace(/^https?:\/\//, '')}`, user.id);
 
             socket.onopen = () => {
-                console.log('WebSocket connection established');
+                console.log('WebSocket connection established NOTIF_srv');
             };
 
             socket.onmessage = (event) => {

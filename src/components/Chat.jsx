@@ -21,7 +21,7 @@ const Chat = ({ user }) => {
 
     socket.onopen = () => {
       if (userId) {
-        console.log('Connected to WebSocket');
+        console.log('Connected to WebSocket online_srv');
         socket.send(JSON.stringify({ userId }));
       }
     };
@@ -52,30 +52,32 @@ const Chat = ({ user }) => {
 
   useEffect(() => {
     ws.current = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_MSG_URL.replace(/^https?:\/\//, '')}`);
-
+  
     ws.current.onopen = () => {
+      console.log('✅ Connexion WebSocket établie avec le serveur MSG.');
       ws.current.send(JSON.stringify({ userId: user.id }));
     };
-
+  
     ws.current.onmessage = (event) => {
       try {
         const messageData = JSON.parse(event.data);
-      
+  
         if (messageData.sender_id === Id) {
           displayMessage(messageData);
         }
       } catch (error) {
-        console.error('Error parsing JSON:', error);
+        console.error('❌ Erreur lors de l’analyse du JSON:', error);
       }
     };
-    
+  
     fetchMessages();
     fetchReceiver();
-
+  
     return () => {
       ws.current.close();
     };
   }, [user, Id]);
+  
   const handleProfilClick = (receiver) => {
     console.log(receiver); // Vérifiez que vous obtenez l'objet correct dans la console
     navigate(`/profile/${receiver.id}`);

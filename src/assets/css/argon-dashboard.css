@@ -1212,6 +1212,9 @@ Login */
   background: #2691d9;
   transform: translateY(-2px);
 }
+.connexion{
+  width: 100%;
+}
 
 .login {
   margin: 20px 0;
