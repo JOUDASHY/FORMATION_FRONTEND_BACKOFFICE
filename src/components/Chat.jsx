@@ -17,7 +17,7 @@ const Chat = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
+    const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
 
     socket.onopen = () => {
       if (userId) {
@@ -51,7 +51,7 @@ const Chat = ({ user }) => {
   };
 
   useEffect(() => {
-    ws.current = new WebSocket(`ws://${import.meta.env.VITE_SOCKET_MSG_URL.replace(/^https?:\/\//, '')}`);
+    ws.current = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_MSG_URL.replace(/^https?:\/\//, '')}`);
 
     ws.current.onopen = () => {
       ws.current.send(JSON.stringify({ userId: user.id }));

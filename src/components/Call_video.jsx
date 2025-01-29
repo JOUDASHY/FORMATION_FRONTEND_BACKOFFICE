@@ -9,7 +9,7 @@ import Peer from "simple-peer"
 import io from "socket.io-client"
 
 // Connexion au serveur socket
-const socket = io.connect(`ws://${import.meta.env.VITE_API_BASE_URL.replace(/^https?:\/\//, '')}:5000`)
+const socket = io.connect(`wss://${import.meta.env.VITE_API_BASE_URL.replace(/^https?:\/\//, '')}:5000`)
 
 function Call_video({ user }) {
 	const [me, setMe] = useState(user.id); // Utiliser `user.id` directement

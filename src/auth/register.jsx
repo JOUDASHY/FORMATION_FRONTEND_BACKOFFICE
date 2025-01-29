@@ -9,11 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 import Select from 'react-select';
 
+import { ClipLoader } from 'react-spinners'; // Import du spinner
 
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const [loading, setLoading] = useState(false); // État pour le spinner
+
   const options = [
       { value: 'masculin', label: 'Masculin' },
       { value: 'feminin', label: 'Féminin' }
@@ -32,44 +35,60 @@ export default function Register() {
       setPasswordVisible(!passwordVisible);
   };
 
-  const submit = (ev) => {
-      ev.preventDefault();
-
-      // Vérifiez si le champ 'sex' est bien défini
-      if (!sex) {
-          toast.error("Le sexe est obligatoire.");
-          return; // Si non, stoppez la soumission
+  const submit = async (ev) => {
+    ev.preventDefault();
+    setLoading(true); // Afficher le spinner
+  
+    // Vérifiez si le champ 'sex' est bien défini
+    if (!sex) {
+      toast.error("Le sexe est obligatoire.");
+      setLoading(false); // Masquer le spinner avant de quitter
+      return; // Si non, stoppez la soumission
+    }
+  
+    const payload = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      sex: sex, // Ajoutez le sexe au payload
+    };
+  
+    try {
+      const { data } = await axiosClient.post("/auth/register", payload);
+  
+      // Si l'inscription est réussie
+      setUser(data.user);
+      setToken(data.access_token);
+      
+      Swal.fire({
+        title: "Bravo !",
+        text: "Création du compte réussie ! Vous allez maintenant vous connecter.",
+        icon: "success",
+      });
+    } catch (err) {
+      const response = err.response;
+      
+      if (response && response.status === 422) {
+        console.log(response.data.errors);
+        
+        Swal.fire({
+          title: "Oops...",
+          text: response.data.errors.join(", "), // Affiche les erreurs
+          icon: "error",
+        });
+      } else {
+        // Gérer d'autres types d'erreurs (ex : réseau)
+        Swal.fire({
+          title: "Erreur",
+          text: "Une erreur est survenue. Veuillez réessayer.",
+          icon: "error",
+        });
       }
-
-      const payload = {
-          name: nameRef.current.value,
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-          sex: sex, // Ajoutez le sexe au payload
-      };
-
-      axiosClient.post("/auth/register", payload)
-          .then(({ data }) => {
-              setUser(data.user);
-              setToken(data.access_token);
-              Swal.fire({
-                  title: "Bravo !",
-                  text: "Création du compte réussie ! Vous allez maintenant vous connecter.",
-                  icon: "success"
-              });
-          })
-          .catch(err => {
-              const response = err.response;
-              if (response && response.status === 422) {
-                  console.log(response.data.errors);
-                  Swal.fire({
-                      title: "Oops...",
-                      text: response.data.errors.join(", "), // Affiche les erreurs
-                      icon: "error"
-                  });
-              }
-          });
+    } finally {
+      setLoading(false); // Masquer le spinner
+    }
   };
+  
 
   return (
       <div className="bg-img">
@@ -144,8 +163,14 @@ export default function Register() {
           </div>
                   <br />
                   <div className="field">
-                      <input type="submit" value="S'INSCRIRE" />
-                  </div>
+  <button disabled={loading} onClick={submit} className="connexion">
+  {loading ? (
+                          <ClipLoader color="#ffffff" size={20} /> // Spinner ici
+                        ) : (
+                          <> S'INSCRIRE
+                           </>
+                        )}</button>
+</div>
               </form>
               <div className="login">Ou inscrivez-vous avec</div>
               {/* <div className="links">

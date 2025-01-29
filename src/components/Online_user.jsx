@@ -8,7 +8,7 @@ const OnlineUserList = ({ currentuser }) => {
     const userId = currentuser?.id;
 
     useEffect(() => {
-        const socket = new WebSocket(`ws://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
+        const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
         
         socket.onopen = () => {
             if (userId) {
