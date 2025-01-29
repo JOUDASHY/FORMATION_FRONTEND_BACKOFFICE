@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axiosClient from '../axiosClient';
 import { useNavigate } from 'react-router-dom';
 
+import { ClipLoader } from "react-spinners"; // Assurez-vous d'avoir installé cette dépendance pour l'animation de chargement
 
 const Chat = ({ user }) => {
   const [messages, setMessages] = useState([]);
@@ -15,6 +16,7 @@ const Chat = ({ user }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const userId = user?.id;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
@@ -114,6 +116,8 @@ const Chat = ({ user }) => {
   };
 
   const sendMessage = async () => {
+    setLoading(true);
+
     if (messageInput.trim() !== '' || attachment) { // Assurez-vous qu'il y a soit un message soit un fichier
         const formData = new FormData();
         formData.append('sender_id', user.id);
@@ -151,6 +155,8 @@ const Chat = ({ user }) => {
 
         } catch (error) {
             console.error('Erreur lors de l\'envoi du message:', error);
+        }finally {
+          setLoading(false);
         }
     }
 };
@@ -288,8 +294,9 @@ const Chat = ({ user }) => {
           <button
             className="custom-send-button"
             onClick={sendMessage}
+            disabled={loading}
           >
-            <i className="custom-send-icon">➤</i>
+            {loading ? <ClipLoader color="#ffffff" size={20} /> : <i className="custom-send-icon">➤</i>}
           </button>
         </div>
       </div>
