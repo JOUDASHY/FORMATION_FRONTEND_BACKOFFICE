@@ -13,7 +13,7 @@ export const ContextProvider = ({ children }) => {
         const savedUser = localStorage.getItem('USER_INFO');
         return savedUser ? JSON.parse(savedUser) : null;
     });
-    
+
     const [token, _setToken] = useState(() => localStorage.getItem('ACCESS_TOKEN'));
 
     // Méthode pour définir le token avec expiration
@@ -21,7 +21,6 @@ export const ContextProvider = ({ children }) => {
         _setToken(newToken);
         if (newToken) {
             localStorage.setItem('ACCESS_TOKEN', newToken);
-            // Calculer l'heure d'expiration en ms et l'enregistrer dans le localStorage
             const expirationTime = new Date().getTime() + expiresIn * 1000;
             localStorage.setItem('EXPIRATION_TIME', expirationTime);
         } else {
@@ -42,26 +41,31 @@ export const ContextProvider = ({ children }) => {
     // Utilisation de useEffect pour surveiller l'expiration
     useEffect(() => {
         const expirationTime = localStorage.getItem('EXPIRATION_TIME');
+        console.log("Expiration time from localStorage:", expirationTime);
         
         if (expirationTime) {
             const currentTime = new Date().getTime();
+            console.log("Current time:", currentTime);
+            
             const timeRemaining = expirationTime - currentTime;
-
+            console.log("Time remaining until expiration:", timeRemaining);
+            
             if (timeRemaining <= 0) {
-                // Supprimer les données si expiré
+                console.log("Token expired! Removing token and user.");
                 setToken(null);
                 updateUser(null);
             } else {
-                // Sinon, configuration d’un timer pour expiration
+                // Sinon, configurer un timer pour l'expiration
                 const timer = setTimeout(() => {
+                    console.log("Token expired after timeout. Removing token and user.");
                     setToken(null);
                     updateUser(null);
                 }, timeRemaining);
 
-                return () => clearTimeout(timer); // Nettoyage
+                return () => clearTimeout(timer); // Nettoyage du timer
             }
         }
-    }, [token]);
+    }, []); // Le tableau vide ici garantit que ce useEffect s'exécute une seule fois au chargement du composant.
 
     return (
         <stateContext.Provider value={{
