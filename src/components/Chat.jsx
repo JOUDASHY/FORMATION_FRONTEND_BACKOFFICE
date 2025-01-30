@@ -17,6 +17,18 @@ const Chat = ({ user }) => {
   const userId = user?.id;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [fullScreenMedia, setFullScreenMedia] = useState(null); // L'image ou la vidéo en plein écran
+
+  const handleFullScreen = (media) => {
+    setFullScreenMedia(media);
+    setIsFullScreen(true);
+  };
+
+  const closeFullScreen = () => {
+    setIsFullScreen(false);
+    setFullScreenMedia(null);
+  };
 
   useEffect(() => {
     const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
@@ -202,73 +214,88 @@ const Chat = ({ user }) => {
         </div>
 
         <div className="custom-messages-container">
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`custom-message-bubble ${message.sender_id === user.id ? 'custom-sent' : 'custom-received'}`}
-            >
-              {message.sender_id !== user.id && receiver && (
+      {messages.map((message, index) => (
+        <div
+          key={index}
+          className={`custom-message-bubble ${message.sender_id === user.id ? 'custom-sent' : 'custom-received'}`}
+        >
+          {message.sender_id !== user.id && receiver && (
+            <img
+              src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${receiver.image}`}
+              alt={receiver.name}
+              className="custom-receiver-avatar"
+            />
+          )}
+          <span className="custom-message-sender">
+            {message.sender_id === user.id ? '' : message.sender_name}
+          </span>
+          <p className="custom-message-text">{message.message}</p>
+
+          {message.attachment && (
+            <div className="custom-message-attachment">
+              {typeof message.attachment === 'string' && ['jpg', 'jpeg', 'png'].includes(message.attachment.split('.').pop()) ? (
                 <img
-                  src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${receiver.image}`}
-                  alt={receiver.name}
-                  className="custom-receiver-avatar"
+                  src={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
+                  alt="Fichier attaché"
+                  className="custom-attachment-image"
+                  onClick={() => handleFullScreen(`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`)} // Gérer le clic
                 />
-              )}
-              <span className="custom-message-sender">
-                {message.sender_id === user.id ? '' : message.sender_name}
-              </span>
-              <p className="custom-message-text">{message.message}</p>
-
-              {message.attachment && (
-                <div className="custom-message-attachment">
-                  {typeof message.attachment === 'string' && ['jpg', 'jpeg', 'png'].includes(message.attachment.split('.').pop()) ? (
-                    <img
-                      src={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
-                      alt="Fichier attaché"
-                      className="custom-attachment-image"
-                    />
-                  ) : typeof message.attachment === 'string' && message.attachment.split('.').pop() === 'pdf' ? (
-                    <a
-                      href={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="custom-attachment-link"
-                    >
-                      <i className="custom-attachment-icon">📄</i> Télécharger le PDF
-                    </a>
-                  ) : typeof message.attachment === 'string' && ['mp4', 'webm', 'ogg'].includes(message.attachment.split('.').pop()) ? (
-                    <div className="custom-attachment-video">
-                      <video
-                        controls
-                        src={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
-                        className="custom-video-player"
-                      >
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                      </video>
-                    </div> ): typeof message.attachment === 'string' ? (
-                    <a
-                      href={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="custom-attachment-link"
-                    >
-                      <i className="custom-attachment-icon">📎</i> Télécharger le fichier
-                    </a>
-                  ) : (
-                    <span>Fichier attaché inconnu</span>
-                  )}
+              ) : typeof message.attachment === 'string' && message.attachment.split('.').pop() === 'pdf' ? (
+                <a
+                  href={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="custom-attachment-link"
+                >
+                  <i className="custom-attachment-icon">📄</i> Télécharger le PDF
+                </a>
+              ) : typeof message.attachment === 'string' && ['mp4', 'webm', 'ogg'].includes(message.attachment.split('.').pop()) ? (
+                <div className="custom-attachment-video">
+                  <video
+                    controls
+                    src={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
+                    className="custom-video-player"
+                  >
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                  </video>
                 </div>
+              ) : typeof message.attachment === 'string' ? (
+                <a
+                  href={`${import.meta.env.VITE_API_BASE_URL}/storage/message/${message.attachment}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="custom-attachment-link"
+                >
+                  <i className="custom-attachment-icon">📎</i> Télécharger le fichier
+                </a>
+              ) : (
+                <span>Fichier attaché inconnu</span>
               )}
-
-              <span className="custom-message-time">
-                {message.created_at && message.created_at.trim() !== "" && !isNaN(Date.parse(message.created_at))
-                  ? new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                  : "À l'instant"}
-              </span>
             </div>
-          ))}
-          <div ref={messagesEndRef} />
+          )}
+
+          <span className="custom-message-time">
+            {message.created_at && message.created_at.trim() !== "" && !isNaN(Date.parse(message.created_at))
+              ? new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              : "À l'instant"}
+          </span>
         </div>
+      ))}
+      <div ref={messagesEndRef} />
+
+      {/* Affichage en plein écran */}
+      {isFullScreen && (
+        <div className="full-screen-overlay" onClick={closeFullScreen}>
+          <div className="full-screen-media">
+            {fullScreenMedia.endsWith('.mp4') || fullScreenMedia.endsWith('.webm') || fullScreenMedia.endsWith('.ogg') ? (
+              <video controls src={fullScreenMedia} className="full-screen-video" />
+            ) : (
+              <img src={fullScreenMedia} alt="Fichier en plein écran" className="full-screen-image" />
+            )}
+          </div>
+        </div>
+      )}
+    </div>
 
         <div className="custom-message-input-container">
         <div className="file-upload-wrapper ms-3 me-3">
