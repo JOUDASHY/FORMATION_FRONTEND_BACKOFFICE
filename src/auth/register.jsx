@@ -59,7 +59,13 @@ export default function Register() {
       // Si l'inscription est réussie
       setUser(data.user);
       setToken(data.access_token);
-      
+      try {
+        localStorage.setItem("USER_INFO", JSON.stringify(data.user));
+        localStorage.setItem("ACCESS_TOKEN", data.access_token);
+        localStorage.setItem("EXPIRATION_TIME", new Date().getTime() + data.expires_in * 1000);
+    } catch (error) {
+        console.error("Erreur de stockage dans localStorage:", error);
+    }
       Swal.fire({
         title: "Bravo !",
         text: "Création du compte réussie ! Vous allez maintenant vous connecter.",
