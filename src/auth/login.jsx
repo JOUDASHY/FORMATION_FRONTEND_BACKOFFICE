@@ -23,9 +23,10 @@ const Logins = () => {
   };
 
   // Soumission du formulaire de connexion
-  const handleSubmit = async () => {
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setLoading(true); // Afficher le spinner
+
     // if (!captchaVerified) {
     //   toast.error("Veuillez vérifier que vous n'êtes pas un robot.");
     //   return;
@@ -41,25 +42,12 @@ const Logins = () => {
         `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
         payload
       );
-      
       setUser(data.user);
       setToken(data.access_token, data.expires_in);
-      
-      try {
-        localStorage.setItem("USER_INFO", JSON.stringify(data.user));
-        localStorage.setItem("ACCESS_TOKEN", data.access_token);
-        localStorage.setItem("EXPIRATION_TIME", new Date().getTime() + data.expires_in * 1000);
-    } catch (error) {
-        console.error("Erreur de stockage dans localStorage:", error);
-    }
-    
-      // Vérification via console
-      console.log("Access Token stocké : ", localStorage.getItem("ACCESS_TOKEN"));
-      console.log("User info stocké : ", localStorage.getItem("USER_INFO"));
-      console.log("Expiration Time stocké : ", localStorage.getItem("EXPIRATION_TIME"));
-      
+      localStorage.setItem("USER_INFO", JSON.stringify(data.user));
+
+      // Message de succès
       toast.success("Connexion réussie !");
-      
     } catch (error) {
       const response = error.response;
 
@@ -81,9 +69,9 @@ const Logins = () => {
           "Impossible de se connecter au serveur. Vérifiez votre connexion."
         );
       }
-    }finally {
+    } finally {
       setLoading(false); // Masquer le spinner
-    }
+  }
   };
 
 
