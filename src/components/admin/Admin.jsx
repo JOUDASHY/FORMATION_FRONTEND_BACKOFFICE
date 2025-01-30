@@ -466,11 +466,11 @@ console.log(formData);
 
                 <div className="header-bar">  
                 <button
-        className="btn btn-secondary"
+        className="btn btn-secondary retour"
         onClick={() => navigate(-1)} // Retour à la page précédente
       >
         <i className="fas fa-arrow-left me-2"></i> {/* Icône de retour */}
-        Retour
+     <span className="btn-label">   Retour</span>
       </button>
     <h2 className="me-0">Liste des admins</h2>
 
