@@ -17,6 +17,22 @@ const VideoConference = ({ user }) => {
   const [formations, setFormations] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
+  const handleFullScreen = () => {
+    if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else if (videoRef.current.mozRequestFullScreen) {
+        // Firefox
+        videoRef.current.mozRequestFullScreen();
+      } else if (videoRef.current.webkitRequestFullscreen) {
+        // Chrome, Safari et Opera
+        videoRef.current.webkitRequestFullscreen();
+      } else if (videoRef.current.msRequestFullscreen) {
+        // IE/Edge
+        videoRef.current.msRequestFullscreen();
+      }
+    }
+  };
   const handleRoomChange = (e) => {
     setSelectedRoom(e.target.value);
   };
@@ -278,15 +294,18 @@ const VideoConference = ({ user }) => {
         </div>
 
         {/* Vidéo */}
-        <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-dark">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            className="w-100"
-            style={{ height: '100%', objectFit: 'contain' }}
-          />
-        </div>
+        <div
+      className="flex-grow-1 d-flex align-items-center justify-content-center bg-dark"
+      onClick={handleFullScreen}
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        className="w-100"
+        style={{ height: "100%", objectFit: "contain", cursor: "pointer" }}
+      />
+    </div>
 
         {/* Boutons de contrôle */}
         <div className="bg-dark bg-opacity-75 py-2">

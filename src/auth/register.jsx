@@ -117,34 +117,37 @@ export default function Register() {
                   </div>
                   <div className="field space">
   <span className="fa fa-user"></span>
-  
-  <div className="radio-buttons">
-        <label className={`radio-label ${sex === 'masculin' ? 'selected' : ''}`}>
-          <input
-            type="radio"
-            value="masculin"
-            checked={sex === 'masculin'}
-            onChange={handleChange_sex}
-            name="sex"
-            className="radio-input"
-          />
-          <span className="radio-custom"></span>
+  <div className="d-flex gap-3">
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="radio"
+          name="sex"
+          value="masculin"
+          id="masculin"
+          checked={sex === "masculin"}
+          onChange={handleChange_sex}
+        />
+        <label className="form-check-label" htmlFor="masculin">
           Masculin
         </label>
+      </div>
 
-        <label className={`radio-label ${sex === 'féminin' ? 'selected' : ''}`}>
-          <input
-            type="radio"
-            value="féminin"
-            checked={sex === 'féminin'}
-            onChange={handleChange_sex}
-            name="sex"
-            className="radio-input"
-          />
-          <span className="radio-custom"></span>
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="radio"
+          name="sex"
+          value="féminin"
+          id="feminin"
+          checked={sex === "féminin"}
+          onChange={handleChange_sex}
+        />
+        <label className="form-check-label" htmlFor="feminin">
           Féminin
         </label>
       </div>
+    </div>
 </div>
 
                          {/* Champ Mot de passe */}
