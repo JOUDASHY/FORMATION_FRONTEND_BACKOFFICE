@@ -19,6 +19,8 @@ const Planning_formateur = ({user}) => {
   const [day, setDay] = useState('');
   const [startTime, setStartTime] = useState('');
   const [coursesOptions, setCoursesOptions] = useState([]);
+  const [roomsOptions, setRoomsOptions] = useState([]); // État pour les options de salles
+  const [loadingRooms, setLoadingRooms] = useState(true); // État pour gérer le chargement
 
   const [startOfWeek, setStartOfWeek] = useState(new Date()); // Date de début de la semaine
 
@@ -33,7 +35,7 @@ const Planning_formateur = ({user}) => {
     // Fonction pour récupérer les salles depuis l'API
     const fetchRooms = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/rooms');
+            const response = await axiosClient.get('/rooms');
             const formattedRooms = response.data.map(room => ({
                 label: `Salle ${room.room_number}`,
                 value: room.id,
@@ -79,7 +81,7 @@ const Planning_formateur = ({user}) => {
   const fetchSchedules = async () => {
     try {
 
-      const response = await axiosClient.get(`/Planning_formateur`);
+      const response = await axiosClient.get(`/Planning_formateur_EDT`);
       setSchedules(response.data);
 
     } catch (error) {
