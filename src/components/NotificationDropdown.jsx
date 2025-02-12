@@ -32,7 +32,8 @@ const NotificationDropdown = () => {
         let reconnectTimer;
 
         const connectWebSocket = () => {
-            socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_NOTIF_URL.replace(/^https?:\/\//, '')}`, user.id);
+            socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_URL.replace(/^https?:\/\//, '')}/ws/notifications`, user.id);
+
 
             socket.onopen = () => {
                 console.log('WebSocket connection established NOTIF_srv');

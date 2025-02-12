@@ -25,10 +25,6 @@ function Formation() {
     
     const [tariff, setTariff] = useState("");
 
-
-
-
-
     useEffect(() => {
         (async () => await Load())();
     }, []);

@@ -36,12 +36,15 @@ const GeminiAIChat = ({user}) => {
         {
           parts: [
             {
-              text: inputText,
+              text: `${inputText} 
+              
+              Formate la réponse en texte brut sans utiliser de caractères spéciaux comme **, *, -, ou autres symboles Markdown. Évite les listes à puces et utilise des phrases complètes pour chaque étape."`,
             },
           ],
         },
       ],
     };
+    
 
     try {
       const response = await axios.post(API_URL, requestData, {

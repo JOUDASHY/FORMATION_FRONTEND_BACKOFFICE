@@ -31,7 +31,8 @@ const Chat = ({ user }) => {
   };
 
   useEffect(() => {
-    const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
+        const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_URL.replace(/^https?:\/\//, '')}/ws/onlineUsers`);
+
 
     socket.onopen = () => {
       if (userId) {
@@ -65,8 +66,8 @@ const Chat = ({ user }) => {
   };
 
   useEffect(() => {
-    ws.current = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_MSG_URL.replace(/^https?:\/\//, '')}`);
-  
+    ws.current = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_URL.replace(/^https?:\/\//, '')}/ws/messages`);
+
     ws.current.onopen = () => {
       console.log('✅ Connexion WebSocket établie avec le serveur MSG.');
       ws.current.send(JSON.stringify({ userId: user.id }));

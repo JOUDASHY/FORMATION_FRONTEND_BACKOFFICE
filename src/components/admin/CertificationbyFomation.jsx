@@ -292,11 +292,7 @@ function Certification() {
         setIsDeleteModalOpen(true); 
     };
 
-    // Filtrer les certifications en fonction de la recherche
-    // const filteredCertifications = certifications.filter(certification =>
-    //     certification.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //     certification.description.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
+
     const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
     const [selectedCertificateData, setSelectedCertificateData] = useState(null);
     

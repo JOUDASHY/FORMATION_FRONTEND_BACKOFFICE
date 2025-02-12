@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios"; // Assurez-vous que axios est installé
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate pour gérer la navigation
 import Right from './Right';
 import { Chart, registerables } from 'chart.js'; 

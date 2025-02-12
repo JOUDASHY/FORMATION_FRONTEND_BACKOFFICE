@@ -18,7 +18,8 @@ export default function DefaultLayout() {
         const baseUrl = window.location.origin;
 console.log("URL ............ :",baseUrl); // Ex: http://localhost:3000 ou https://monapp.com
 
-        const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_ONLINE_URL.replace(/^https?:\/\//, '')}`);
+            const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_URL.replace(/^https?:\/\//, '')}/ws/onlineUsers`);
+
 
         socket.onopen = () => {
             if (userId) {

@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import axiosClient from '../axiosClient';
 import Swal from 'sweetalert2';
 
-const socket = io(`${import.meta.env.VITE_SOCKET_VIDEO_URL}`); // Connexion au serveur socket.io
+const socket = io(`${import.meta.env.VITE_SOCKET_URL}/video`); // Connexion au serveur socket.io
 
 const VideoConference = ({ user }) => {
   const userType = user.type;

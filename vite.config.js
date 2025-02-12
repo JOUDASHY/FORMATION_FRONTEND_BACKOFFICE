@@ -18,5 +18,6 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // Le répertoire de sortie pour le build
+    sourcemap: false,
   }
 });

@@ -5,7 +5,7 @@ import logo_unit from '../assets/img/logo_unit.png';
 import Modal from 'react-modal';
 import io from 'socket.io-client';
 
-const socket = io(`${import.meta.env.VITE_SOCKET_VIDEO_URL}`); // Connexion au serveur socket.io
+const socket = io(`${import.meta.env.VITE_SOCKET_URL}/video`); // Connexion au serveur socket.io
 
 const Aside = ({ user, setUser, setToken }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

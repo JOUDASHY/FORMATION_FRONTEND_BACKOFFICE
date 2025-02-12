@@ -129,8 +129,6 @@ function Module() {
     const formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
-    // formData.append('duration', duration);
-
     formData.append('formation_id', formation_id);
     formData.append('description', description);
     formData.append('image', fileimage);
