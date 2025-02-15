@@ -1,6 +1,4 @@
-import './assets/css/argon-dashboard.css';
-// import './assets/css/nucleo-icons.css';
-import './assets/css/argon-dashboard.min.css';
+
 // import './assets/css/nucleo-svg.css';
 import router from './router.jsx'
 import { StrictMode } from 'react'

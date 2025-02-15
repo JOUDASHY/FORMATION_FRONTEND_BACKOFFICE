@@ -49,7 +49,7 @@ const ResetPassword = () => {
     return (
         <div className="bg-img">
             <ToastContainer />
-            <div className="content">
+            <div className="content-auth">
                 <img src={logo} alt="UNIT Logo" className="logo" />
                 <header>Initialiser le mot de passe de {email}</header>
                 <form onSubmit={handleSubmit}>

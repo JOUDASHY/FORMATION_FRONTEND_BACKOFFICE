@@ -61,30 +61,30 @@ const Navbar = ({user}) => {
     closeSearchModal();
 
     setActiveNav("history"); // Marquer l'élément comme actif
-    navigate("/Payment_history"); // Rediriger vers l'historique des paiements
+    navigate("/c/Payment_history"); // Rediriger vers l'historique des paiements
   };
   const handleMessagesClick = (Id) => {
 
-      navigate(`/chat/${Id}`);
+      navigate(`/c/chat/${Id}`);
        closeSearchModal();
   };
 
   const navMessageClick = () => {
     closeSearchModal();
-      navigate(`/MessageList`);
+      navigate(`/c/MessageList`);
   };
   const navProfilClick = () => {
     closeSearchModal();
-    navigate('/profile');
+    navigate('/c/profile');
   };
   const navProfil_userClick  = (Id) => {
     closeSearchModal();
-    navigate(`/profile/${Id}`);
+    navigate(`/c/profile/${Id}`);
   };
   const handleCallClick = (userId) => {
     closeSearchModal();
       
-      navigate(`/call/${userId}`);
+      navigate(`/c/call/${userId}`);
   };
   
   useEffect(() => {

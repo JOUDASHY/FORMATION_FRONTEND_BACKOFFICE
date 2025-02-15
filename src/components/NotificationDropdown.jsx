@@ -87,7 +87,7 @@ const NotificationDropdown = () => {
 
     const handleShowAll = () => {
         if (!showAll) {
-            navigate('/Notification_list'); // Rediriger vers la page de notifications
+            navigate('/c/Notification_list'); // Rediriger vers la page de notifications
         }
         setShowAll(!showAll);
         setNotifications(showAll ? allNotifications.slice(0, 5) : allNotifications);

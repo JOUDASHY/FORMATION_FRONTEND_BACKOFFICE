@@ -176,7 +176,7 @@ const MessageList = ({ user }) => {
     setFilteredMessages(messages); // Réinitialiser les messages à leur état original
   };
   const handleMessagesClick = async (otherUserId) => {
-    navigate(`/chat/${otherUserId}`);
+    navigate(`/c/chat/${otherUserId}`);
   
     // Filtrer les messages non lus de cet utilisateur
     const unreadMessages = messages.filter(
@@ -207,7 +207,7 @@ const MessageList = ({ user }) => {
   };
   const handleProfilClick = (receiver) => {
     console.log(receiver); // Vérifiez que vous obtenez l'objet correct dans la console
-    navigate(`/profile/${receiver.id}`);
+    navigate(`/c/profile/${receiver.id}`);
   };
   
   

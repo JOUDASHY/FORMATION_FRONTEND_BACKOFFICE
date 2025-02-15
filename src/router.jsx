@@ -1,6 +1,7 @@
 import { createBrowserRouter, Route, Routes } from 'react-router-dom';
 import { useStateContext } from './contexts/contextprovider';  // Assurez-vous que le chemin est correct
 import DefaultLayout from './Components_layout/DefaultLayout.jsx';
+import LandingLayout from './Components_layout/LandingLayout.jsx';
 import GuestLayout from './Components_layout/GuestLayout.jsx';
 import Login from './auth/login.jsx';
 import Register from './auth/register.jsx';
@@ -45,28 +46,45 @@ import Chat from './components/Chat.jsx';
 import Forum from './components/Forum.jsx';
 import Profile from './components/Profile.jsx';
 import VideoConference from './components/VideoConference.jsx';
-// import VideoRoom from './components/VideoRoom.jsx';
 import Online_user from './components/Online_user.jsx';
 import Chatbot from './components/Chatbot.jsx';
 
 import Gemini_api from './components/Gemini_api.jsx';
-// import Call_video from './components/Call_video.jsx';
 import NotFound from './components/NotFound.jsx';
-
-
-
 
 import ForgotPassword from './auth/ForgotPassword.jsx'; // Assurez-vous que le chemin est correct
 import ResetPassword from './auth/ResetPassword.jsx'; // Assurez-vous que le chemin est correct
 import SetPassword from './auth/SetPassword.jsx'; // Assurez-vous que le chemin est correct
-// import Call_user from "./components/Call_user"; // Chemin vers Call_video.jsx
-// import Call_video from "./components/Call_video"; // Chemin vers Call_video.jsx
+
+
+
+
+
+
+
+
+
+
+
+
+// Composants de landing page
+import Home from './components/landing_page/Home';
+import About from './components/landing_page/About';
+import Contact from './components/landing_page/Contact';
+import Module_list_page from './components/landing_page/Module_list_page';
+import Formtion_list_page from './components/landing_page/Formtion_list_page';
+import FormationInscriptionWithStripe from './components/landing_page/Formation_inscription';
+import Formateur_list from './components/landing_page/Formateur';
+import NotFound_landing from './components/landing_page/NotFound';
+
+
+
+
 
 const RoutesWithAuth = () => {
   const { user } = useStateContext(); // Assurez-vous que l'utilisateur est bien récupéré
   console.log("user :", user); // Debug : Vérifiez dans la console
 
-  // Si user n'est pas défini, afficher un message temporaire
   if (!user) {
     return <div>Chargement des informations utilisateur...</div>;
   }
@@ -149,39 +167,47 @@ const RoutesWithAuth = () => {
   );
 };
 
-
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/c',
     element: <DefaultLayout />,
     children: [
-      { path: '*', element: <RoutesWithAuth /> }, // Assurez-vous que toutes les routes d'authentification sont capturées
-      { path: '/', element: <RoutesWithAuth /> }, // Assurez-vous que toutes les routes d'authentification sont capturées
+      { index: true, element: <RoutesWithAuth /> },
+      { path: '*', element: <RoutesWithAuth /> },
     ],
   },
-  // Routes invitées (non authentifiées)
+
+  {
+    path: '/',
+    element: <LandingLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'About', element: <About /> },
+      { path: 'Contact', element: <Contact /> },
+      { path: 'Module_list_page', element: <Module_list_page /> },
+      { path: 'Formtion_list_page', element: <Formtion_list_page /> },
+      {
+        path: 'Formation_inscription/:formationId',
+        element: <FormationInscriptionWithStripe />,
+      },
+      { path: 'Formateur', element: <Formateur_list /> },
+      { path: '*', element: <NotFound_landing /> },
+    ],
+  },
+
   {
     path: '/',
     element: <GuestLayout />,
     children: [
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
-      {
-        path: 'forgot-password', 
-        element: <ForgotPassword /> 
-      },
-      {
-        path: 'password-reset/:token',  // Modifiez ici pour correspondre à l'URL dans l'email
-        element: <ResetPassword /> 
-      },
-      {
-        path: 'password-set/:token',  // Modifiez ici pour correspondre à l'URL dans l'email
-        element: <SetPassword /> 
-      }
-      
+      { path: 'forgot-password', element: <ForgotPassword /> },
+      { path: 'password-reset/:token', element: <ResetPassword /> },
+      { path: 'password-set/:token', element: <SetPassword /> },
     ],
   },
 ]);
+
 
 
 export default router;

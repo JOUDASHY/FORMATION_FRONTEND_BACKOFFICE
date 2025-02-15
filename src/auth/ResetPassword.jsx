@@ -67,7 +67,7 @@ const ResetPassword = () => {
     return (
         <div className="bg-img">
             {/* <ToastContainer /> */}
-            <div className="content">
+            <div className="content-auth">
                 <img src={logo} alt="UNIT Logo" className="logo" />
                 <header>Réinitialiser le mot de passe</header>
                 <form onSubmit={handleSubmit}>

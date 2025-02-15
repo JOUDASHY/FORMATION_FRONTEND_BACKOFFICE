@@ -108,47 +108,41 @@ const Aside = ({ user, setUser, setToken }) => {
       <div className="sidenav-header">
         <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <NavLink className="navbar-brand m-0" to="" target="_blank" rel="noopener noreferrer">
-          <img src={logo_unit} className="navbar-brand-img h-100" alt="main_logo" />
+          <img src={logo_unit} className="logo_aside" alt="main_logo" />
           <span className="ms-1 font-weight-bold">UN-IT</span>
         </NavLink>
       </div>
       <hr className="horizontal dark mt-0" />
       <div className=" w-auto mx-2" id="sidenav-collapse-main">
         <ul className="navbar-nav">
-          <NavItem iconClass="fas fa-tachometer-alt text-dark" text="Accueil" to="/" />
+        <NavItem iconClass="fas fa-tachometer-alt text-dark" text="Accueil" to="/c/" end />
 
           {user.type === 'formateur' && (
             <>
-              <NavItem iconClass="fas fa-book text-dark" text="Mes leçons" to="Lesson_formateur" />
-              <NavItem iconClass="fas fa-calendar-alt text-dark" text="Emploi du temps" to="Planning_Formateur" />
-              <NavItem iconClass="fas fa-user-check text-dark" text="Fiche de présence" to="Presence_list" />
+              <NavItem iconClass="fas fa-book text-dark" text="Mes leçons" to="/c/Lesson_formateur" />
+              <NavItem iconClass="fas fa-calendar-alt text-dark" text="Emploi du temps" to="/c/Planning_Formateur" />
+              <NavItem iconClass="fas fa-user-check text-dark" text="Fiche de présence" to="/c/Presence_list" />
             </>
           )}
 
           {user.type === 'apprenant' && (
             <>
-              <NavItem iconClass="fas fa-book text-dark" text="Formation" to="Formation" />
-              <NavItem iconClass="fas fa-book text-dark" text="Mes leçons" to="Lesson_apprenant" />
-              {/* <NavItem iconClass="fas fa-user text-dark" text="Utilisateur" to="User" /> */}
+              <NavItem iconClass="fas fa-book text-dark" text="Formation" to="/c/Formation" />
+              <NavItem iconClass="fas fa-book text-dark" text="Mes leçons" to="/c/Lesson_apprenant" />
 
             </>
           )}
 
           {user.type === 'admin' && (
             <>
-              {/* <NavItem iconClass="fas fa-tachometer-alt text-dark" text="dashboard" to="dashboard" /> */}
-         
-            <NavItem iconClass="fas fa-user text-dark" text="Utilisateur" to="User" />
 
-              <NavItem iconClass="fas fa-chalkboard-teacher text-dark" text="Formation" to="Formation" />
-              <NavItem iconClass="fas fa-th text-dark" text="Module" to="Module" />
-              <NavItem iconClass="fas fa-graduation-cap text-dark" text="Matière" to="course" />
+            <NavItem iconClass="fas fa-user text-dark" text="Utilisateur" to="/c/User" />
 
-              {/* <NavItem iconClass="fas fa-user-graduate text-dark" text="Apprenant" to="Apprenant" />
-              <NavItem iconClass="fas fa-user text-dark" text="Admin" to="admin" />
-              <NavItem iconClass="fas fa-user-tie text-dark" text="Formateur" to="Formateur" /> */}
+              <NavItem iconClass="fas fa-chalkboard-teacher text-dark" text="Formation" to="/c/Formation" />
+              <NavItem iconClass="fas fa-th text-dark" text="Module" to="/c/Module" />
+              <NavItem iconClass="fas fa-graduation-cap text-dark" text="Matière" to="/c/course" />
 
-              <NavItem iconClass="fas fa-chalkboard text-dark" text="Salle" to="Room" />
+              <NavItem iconClass="fas fa-chalkboard text-dark" text="Salle" to="/c/Room" />
 
 
 
@@ -166,7 +160,7 @@ const Aside = ({ user, setUser, setToken }) => {
                   {formations.length > 0 ? (
                     formations.map((formation) => (
                       <li key={formation.id} className="custom-dropdown-item">
-                        <NavLink to={`/InscriptionbyFomation/${formation.id}`}>{formation.name}</NavLink>
+                        <NavLink to={`/c/InscriptionbyFomation/${formation.id}`}>{formation.name}</NavLink>
                       </li>
                     ))
                   ) : (
@@ -195,7 +189,7 @@ const Aside = ({ user, setUser, setToken }) => {
                   {formations.length > 0 ? (
                     formations.map((formation) => (
                       <li key={formation.id} className="custom-dropdown-item">
-                        <NavLink to={`/CertificationbyFomation/${formation.id}`}>{formation.name}</NavLink>
+                        <NavLink to={`/c/CertificationbyFomation/${formation.id}`}>{formation.name}</NavLink>
                       </li>
                     ))
                   ) : (
@@ -229,7 +223,7 @@ const Aside = ({ user, setUser, setToken }) => {
                   {formations.length > 0 ? (
                     formations.map((formation) => (
                       <li key={formation.id} className="custom-dropdown-item">
-                        <NavLink to={`/Planning_admin/formations/${formation.id}`}>{formation.name}</NavLink>
+                        <NavLink to={`/c/Planning_admin/formations/${formation.id}`}>{formation.name}</NavLink>
                       </li>
                     ))
                   ) : (
@@ -263,7 +257,7 @@ const Aside = ({ user, setUser, setToken }) => {
           {formations.length > 0 ? (
             formations.map((formation) => (
               <li key={formation.id} className="custom-dropdown-item">
-                <NavLink to={`/evaluations/formation/${formation.id}`}>{formation.name}</NavLink>
+                <NavLink to={`/c/evaluations/formation/${formation.id}`}>{formation.name}</NavLink>
               </li>
             ))
           ) : (
@@ -277,7 +271,7 @@ const Aside = ({ user, setUser, setToken }) => {
   
       {/* Badge conditionnel à côté du texte "Vidéo Conférences" */}
       <div style={{ display: 'inline-block', position: 'relative' }}>
-      <NavItem iconClass="fas fa-video text-dark" text="Vidéo Conférences" to="VideoConference" />
+      <NavItem iconClass="fas fa-video text-dark" text="Vidéo Conférences" to="/c/VideoConference" />
     
         {isConferenceStarted && (
           <span
@@ -296,20 +290,11 @@ const Aside = ({ user, setUser, setToken }) => {
           </span>
         )}
       </div>
-    <NavItem iconClass="fas fa-robot text-dark" text="Assistant IA" to="/Gemini_api" />
-    <NavItem iconClass="fas fa-lightbulb text-dark" text="Communauté d'Entraide" to="Forum" />
+    <NavItem iconClass="fas fa-robot text-dark" text="Assistant IA" to="/c/Gemini_api" />
+    <NavItem iconClass="fas fa-lightbulb text-dark" text="Communauté d'Entraide" to="/c/Forum" />
   </>
 )}
 
-   
-          {/* Accessible à tous les types d'utilisateurs */}
-          {/* <NavItem iconClass="fas fa-search text-dark" text="Recherche" to="Recherche_user" /> */}
-          {/* <NavItem iconClass="fas fa-user-circle text-dark" text="Profile" to="Profile" /> */}
-
-
-          {/* <NavItem iconClass="fas fa-comments text-dark" text="Messages" to="MessageList" /> */}
-        
-          {/* <NavItem iconClass="fas fa-user-friends text-dark" text="Online_user" to="Online_user" /> */}
           <li className="nav-item">
   <NavLink className="nav-link" to="/login" onClick={handleLogoutClick}>
     <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -362,9 +347,11 @@ const Aside = ({ user, setUser, setToken }) => {
 const NavItem = ({ iconClass, text, to }) => (
   <li className="nav-item">
     <NavLink 
-      className={({ isActive }) => `nav-link ${isActive ? 'active green-bg' : ''}`}
-      to={to}
-    >
+  className={({ isActive }) => `nav-link ${isActive ? 'active green-bg' : ''}`}
+  to={to}
+  end
+>
+
       <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
         <i className={iconClass}></i>
       </div>

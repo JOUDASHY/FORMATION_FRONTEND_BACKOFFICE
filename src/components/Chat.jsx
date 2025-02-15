@@ -95,7 +95,7 @@ const Chat = ({ user }) => {
   
   const handleProfilClick = (receiver) => {
     console.log(receiver); // Vérifiez que vous obtenez l'objet correct dans la console
-    navigate(`/profile/${receiver.id}`);
+    navigate(`/c/profile/${receiver.id}`);
   };
 
   

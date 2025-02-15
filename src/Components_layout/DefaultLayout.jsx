@@ -6,6 +6,8 @@ import Aside from '../components/Aside';
 import Navbar from '../components/Navbar';
 // import LoadingBar from 'react-top-loading-bar'; // Importez LoadingBar
 import bgImage from '../assets/css/images/bg.jpg';
+import '../assets/css/argon-dashboard.css';
+import '../assets/css/argon-dashboard.min.css';
 
 export default function DefaultLayout() {
     const { user, token, setUser, setToken } = useStateContext();

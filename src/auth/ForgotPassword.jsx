@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     return (
         <div className="bg-img">
             <ToastContainer />
-            <div className="content">
+            <div className="content-auth">
                 <img src={logo} alt="UNIT Logo" className="logo" />
                 <header>Mot de passe oublié</header>
                 <form onSubmit={handleSubmit}>

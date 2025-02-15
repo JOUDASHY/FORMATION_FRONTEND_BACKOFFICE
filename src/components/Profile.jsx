@@ -156,7 +156,7 @@ const Profile = ({ user }) => {
     return <div>Chargement...</div>;
   }
   const handleMessagesClick = () => {
-    navigate(`/chat/${userId}`);
+    navigate(`/c/chat/${userId}`);
   };
 
   return (

@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-"scripts": {
-  "dev": "vite --host",
-  "build": "vite build",
-  "lint": "eslint .",
-  "preview": "vite preview"
-},
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -27,6 +27,7 @@
     "date-fns": "^3.6.0",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
+    "jquery": "^3.7.1",
     "jspdf": "^2.5.2",
     "laravel-echo": "^1.16.1",
     "moment": "^2.30.1",
