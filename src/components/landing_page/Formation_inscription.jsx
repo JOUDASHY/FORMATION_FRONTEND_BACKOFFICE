@@ -37,7 +37,6 @@ const Formation_inscription = () => {
                 toast.error("Impossible de récupérer le tarif de la formation.");
             }
         };
-
         fetchFormation();
     }, [formationId]);
 

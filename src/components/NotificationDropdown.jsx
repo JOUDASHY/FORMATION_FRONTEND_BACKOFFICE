@@ -95,63 +95,61 @@ const NotificationDropdown = () => {
 
     return (
         <li className="nav-item dropdown pe-2 d-flex align-items-center">
-            <a
-                href="#"
-                className="nav-link text-white p-0"
-                id="dropdownMenuButton"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
-                <i className="fa fa-bell cursor-pointer"></i>
-                {unreadCount > 0 && (
-                    <span className="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
-                        {unreadCount}
-                    </span>
-                )}
-            </a>
-            <ul className="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton" style={{ width: '100%', minWidth: '450px', overflowY: 'auto' }}>
-                {notifications.length === 0 ? (
-                    <li className="dropdown-item">Aucune notification</li>
-                ) : (
-                    notifications.map((notification) => (
-                        <li key={notification.id} className="mb-2">
-                            <a
-                                className="dropdown-item border-radius-md"
-                                href="#"
-                                onClick={() => markAsRead(notification.id)}
-                            >
-                                <div className="d-flex py-1">
-                                    <div className="my-auto">
-                                        <img src={notification.avatar || 'default-avatar.png'} className="avatar avatar-sm me-3" alt="avatar" />
-                                    </div>
-                                    <div className="d-flex flex-column justify-content-center">
-                                        <h6 className="text-sm font-weight-normal mb-1">
-                                            <span className="font-weight-bold">{notification.message}</span>
-                                        </h6>
-                                        <p className="text-xs text-secondary mb-0">
-                                            <i className="fa fa-clock me-1"></i>
-                                            {
-                                                (notification.timestamp || notification.created_at) ? (
-                                                    `Il y a ${formatDistanceToNow(parseISO(notification.timestamp || notification.created_at), { locale: fr })}`
-                                                ) : (
-                                                    'Date inconnue'
-                                                )
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    ))
-                )}
-                <li>
-                    <button className="dropdown-item text-center d-flex align-items-center justify-content-center" onClick={handleShowAll}>
-                        <i className={`fa ${showAll ? 'fa-chevron-up' : 'fa-chevron-down'} me-2`}></i>
-                        <span>{showAll ? 'Voir moins' : 'Voir toutes les notifications'}</span>
-                    </button>
-                </li>
-            </ul>
-        </li>
+        <a
+   onClick={() => navigate('/c/notification_list')}
+   className="nav-link text-white p-0 cursor-pointer"
+   role="button"
+ >
+               <i className="fa fa-bell cursor-pointer"></i>
+               {unreadCount > 0 && (
+                   <span className="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
+                       {unreadCount}
+                   </span>
+               )}
+           </a>
+           {/* <ul className="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton" style={{ width: '100%', minWidth: '450px', overflowY: 'auto' }}>
+               {notifications.length === 0 ? (
+                   <li className="dropdown-item">Aucune notification</li>
+               ) : (
+                   notifications.map((notification) => (
+                       <li key={notification.id} className="mb-2">
+                           <a
+                               className="dropdown-item border-radius-md"
+                               href="#"
+                               onClick={() => markAsRead(notification.id)}
+                           >
+                               <div className="d-flex py-1">
+                                   <div className="my-auto">
+                                       <img src={notification.avatar || 'default-avatar.png'} className="avatar avatar-sm me-3" alt="avatar" />
+                                   </div>
+                                   <div className="d-flex flex-column justify-content-center">
+                                       <h6 className="text-sm font-weight-normal mb-1">
+                                           <span className="font-weight-bold">{notification.message}</span>
+                                       </h6>
+                                       <p className="text-xs text-secondary mb-0">
+                                           <i className="fa fa-clock me-1"></i>
+                                           {
+                                               (notification.timestamp || notification.created_at) ? (
+                                                   `Il y a ${formatDistanceToNow(parseISO(notification.timestamp || notification.created_at), { locale: fr })}`
+                                               ) : (
+                                                   'Date inconnue'
+                                               )
+                                           }
+                                       </p>
+                                   </div>
+                               </div>
+                           </a>
+                       </li>
+                   ))
+               )}
+               <li>
+                   <button className="dropdown-item text-center d-flex align-items-center justify-content-center" onClick={handleShowAll}>
+                       <i className={`fa ${showAll ? 'fa-chevron-up' : 'fa-chevron-down'} me-2`}></i>
+                       <span>{showAll ? 'Voir moins' : 'Voir toutes les notifications'}</span>
+                   </button>
+               </li>
+           </ul> */}
+       </li>
     );
 };
 
